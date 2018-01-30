@@ -5,9 +5,11 @@
  */
 
 import React, { Component } from 'react';
+import TabNavigator from 'react-native-tab-navigator';
 import {
   Platform,
   StyleSheet,
+  Image,
   Text,
   View
 } from 'react-native';
@@ -19,19 +21,35 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component<{}> {
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 'home'
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <TabNavigator>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'home'}
+            title="Home"
+            renderIcon={() => <Image style={ styles.image } source={require('./res/images/ic_polular.png')} />}
+            renderSelectedIcon={() => <Image style={ styles.image } source={require('./res/images/ic_polular.png')} />}
+            badgeText="1"
+            onPress={() => this.setState({ selectedTab: 'home' })}>
+            <View style={ styles.page1 }></View>
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'profile'}
+            title="Profile"
+            renderIcon={() => <Image style={ styles.image } source={require('./res/images/ic_trending.png')} />}
+            renderSelectedIcon={() => <Image style={ styles.image } source={require('./res/images/ic_trending.png')} />}
+            onPress={() => this.setState({ selectedTab: 'profile' })}>
+            <View style={ styles.page2 }></View>
+          </TabNavigator.Item>
+        </TabNavigator>
       </View>
     );
   }
@@ -40,18 +58,18 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  page1: {
+    flex: 1,
+    backgroundColor: 'rgba(223, 106, 95, .3)'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  page2: {
+    flex: 1,
+    backgroundColor: 'rgba(223, 106, 95, .9)'
   },
+  image: {
+    height: 22,
+    width: 22
+  }
 });
