@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import TabNavigator from 'react-native-tab-navigator';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import {
   Platform,
   StyleSheet,
@@ -21,6 +21,55 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+
+const RootTabs = TabNavigator(
+  {
+    TbPopular: {
+      screen: () => (<View style={styles.page1}></View>),
+      navigationOptions: {
+        tabBarLabel: '最热',
+        tabBarIcon: ({ focused }) => (
+          <Image style={[styles.image, focused ? { tintColor: '#e91e63'} : '']} source={require('./res/images/ic_polular.png')} />
+        )
+      }
+    },
+    TbTrending: {
+      screen: () => (<View style={styles.page2}></View>),
+      navigationOptions: {
+        tabBarLabel: '趋势',
+        tabBarIcon: ({focused}) => (
+          <Image style={[styles.image, focused ? {tintColor: '#e91e63'} : null ] } source={require('./res/images/ic_trending.png')}/>
+        )
+      }
+    },
+    TbFavorite: {
+      screen: () => (<View style={styles.page1}></View>),
+      navigationOptions: {
+        tabBarLabel: '收藏',
+        tabBarIcon: ({ focused }) => (
+          <Image style={[styles.image, focused ? { tintColor: '#e91e63'} : '']} source={require('./res/images/ic_favorite.png')} />
+        )
+      }
+    },
+    TbMy: {
+      screen: () => (<View style={styles.page2}></View>),
+      navigationOptions: {
+        tabBarLabel: '我的',
+        tabBarIcon: ({ focused }) => (
+          <Image style={[styles.image, focused ? { tintColor: '#e91e63'} : '']} source={require('./res/images/ic_my.png')} />
+        )
+      }
+    }
+  },
+  {
+    tabBarPosition: 'bottom',
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: '#e91e63',
+    }
+  }
+);
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +80,8 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TabNavigator>
+        <RootTabs></RootTabs>
+        {/* <TabNavigator>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'tb_popular'}
             selectedTitleStyle={{color: 'red'}}
@@ -68,7 +118,7 @@ export default class App extends Component {
             onPress={() => this.setState({ selectedTab: 'tb_my' })}>
             <View style={ styles.page2 }></View>
           </TabNavigator.Item>
-      </TabNavigator>
+        </TabNavigator> */}
       </View>
     );
   }
