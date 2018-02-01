@@ -137,8 +137,5 @@ const styles = StyleSheet.create({
   image: {
     height: 22,
     width: 22
-  },
-  label: {
-    marginTop: 5
   }
 });
