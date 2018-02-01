@@ -7,19 +7,11 @@
 import React, { Component } from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import {
-  Platform,
   StyleSheet,
   Image,
   Text,
   View
 } from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 
 const RootTabs = TabNavigator(
@@ -28,8 +20,8 @@ const RootTabs = TabNavigator(
       screen: () => (<View style={styles.page1}></View>),
       navigationOptions: {
         tabBarLabel: '最热',
-        tabBarIcon: ({ focused }) => (
-          <Image style={[styles.image, focused ? { tintColor: '#e91e63'} : '']} source={require('./res/images/ic_polular.png')} />
+        tabBarIcon: ({ tintColor }) => (
+          <Image style={[styles.image, {tintColor: tintColor}]} source={require('./res/images/ic_polular.png')} />
         )
       }
     },
@@ -37,8 +29,8 @@ const RootTabs = TabNavigator(
       screen: () => (<View style={styles.page2}></View>),
       navigationOptions: {
         tabBarLabel: '趋势',
-        tabBarIcon: ({focused}) => (
-          <Image style={[styles.image, focused ? {tintColor: '#e91e63'} : null ] } source={require('./res/images/ic_trending.png')}/>
+        tabBarIcon: ({tintColor}) => (
+          <Image style={[styles.image, { tintColor: tintColor } ] } source={require('./res/images/ic_trending.png')}/>
         )
       }
     },
@@ -46,8 +38,8 @@ const RootTabs = TabNavigator(
       screen: () => (<View style={styles.page1}></View>),
       navigationOptions: {
         tabBarLabel: '收藏',
-        tabBarIcon: ({ focused }) => (
-          <Image style={[styles.image, focused ? { tintColor: '#e91e63'} : '']} source={require('./res/images/ic_favorite.png')} />
+        tabBarIcon: ({ tintColor }) => (
+          <Image style={[styles.image, { tintColor}]} source={require('./res/images/ic_favorite.png')} />
         )
       }
     },
@@ -55,8 +47,8 @@ const RootTabs = TabNavigator(
       screen: () => (<View style={styles.page2}></View>),
       navigationOptions: {
         tabBarLabel: '我的',
-        tabBarIcon: ({ focused }) => (
-          <Image style={[styles.image, focused ? { tintColor: '#e91e63'} : '']} source={require('./res/images/ic_my.png')} />
+        tabBarIcon: ({ tintColor }) => (
+          <Image style={[styles.image, { tintColor } ]} source={require('./res/images/ic_my.png')} />
         )
       }
     }
@@ -65,7 +57,12 @@ const RootTabs = TabNavigator(
     tabBarPosition: 'bottom',
     animationEnabled: true,
     tabBarOptions: {
+      showIcon: true,
       activeTintColor: '#e91e63',
+      inactiveTintColor: '#808080',
+      style: {
+        backgroundColor: '#fff'
+      }
     }
   }
 );
@@ -75,7 +72,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       selectedTab: 'tb_popular'
-    }
+    };
   }
   render() {
     return (
@@ -140,5 +137,8 @@ const styles = StyleSheet.create({
   image: {
     height: 22,
     width: 22
+  },
+  label: {
+    marginTop: 5
   }
 });
