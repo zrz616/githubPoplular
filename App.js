@@ -13,11 +13,31 @@ import {
   View
 } from 'react-native';
 
+import Boy from './Boy.js';
+import Girl from './Girl.js';
+
+const ModalStack = StackNavigator(
+  {
+    Boy: {
+      screen: Boy
+    },
+    Girl: {
+      screen: Girl,
+      path: 'girl/:word'
+    }
+  },
+  {
+    initialRouteName: 'Boy',
+    // navigationOptions: {
+    //   header: null
+    // }
+  }
+);
 
 const RootTabs = TabNavigator(
   {
     TbPopular: {
-      screen: () => (<View style={styles.page1}></View>),
+      screen: () => <ModalStack></ModalStack>,
       navigationOptions: {
         tabBarLabel: '最热',
         tabBarIcon: ({ tintColor }) => (
